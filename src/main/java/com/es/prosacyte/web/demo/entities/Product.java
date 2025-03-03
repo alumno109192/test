@@ -41,17 +41,17 @@ public class Product {
     @Column(nullable = false)
     private ProductStatus status;
 
-//    @ElementCollection
-//    @CollectionTable(name = "product_categories", joinColumns = @JoinColumn(name = "product_id"))
-//    @Column(name = "category")
-//    private Set<String> categories = new HashSet<>();
+    @ElementCollection
+    @CollectionTable(name = "product_categories", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "category")
+    private Set<String> categories = new HashSet<>();
 
     @Version
     private Long version;
 
     // Value object for tracking inventory
-    //@Embedded
-    //private Inventory inventory;
+    @Embedded
+    private Inventory inventory;
 
     /**
      * Factory method for creating new products
@@ -63,7 +63,7 @@ public class Product {
         product.description = description;
         product.price = price;
         product.status = ProductStatus.DRAFT;
-       // product.inventory = new Inventory(initialStock);
+        product.inventory = new Inventory(new Product(), initialStock);
 
         return product;
     }
@@ -72,9 +72,9 @@ public class Product {
      * Domain business method to publish a product (make it available)
      */
     public void publish() {
-       /* if (this.inventory.getQuantityAvailable() <= 0) {
+        if (this.inventory.getQuantityAvailable() <= 0) {
             throw new IllegalStateException("Cannot publish a product with no inventory");
-        }*/
+        }
 
         if (this.price.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalStateException("Product price must be greater than zero");
@@ -86,16 +86,16 @@ public class Product {
     /**
      * Domain business method to add product to a category
      */
-    /*public void addToCategory(String category) {
+    public void addToCategory(String category) {
         this.categories.add(category);
-    }*/
+    }
 
     /**
      * Domain business method to remove product from a category
      */
-    /*public void removeFromCategory(String category) {
+    public void removeFromCategory(String category) {
         this.categories.remove(category);
-    }*/
+    }
 
     /**
      * Domain business method to update product price
@@ -110,16 +110,16 @@ public class Product {
     /**
      * Domain business method to stock inventory
      */
-    /*public void stockInventory(int quantity) {
+    public void stockInventory(int quantity) {
         this.inventory.addStock(quantity);
-    }*/
+    }
 
     /**
      * Domain business method to reserve inventory
      */
-    /*public boolean reserveInventory(int quantity) {
+    public boolean reserveInventory(int quantity) {
         return this.inventory.reserve(quantity);
-    }*/
+    }
 
     /**
      * Domain business method to discontinue a product
