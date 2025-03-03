@@ -27,6 +27,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     List<Product> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 
-   // @Query("SELECT p FROM Product p WHERE p.inventory.quantityAvailable <= p.inventory.reorderThreshold")
-    //List<Product> findProductsNeedingRestock();
+    @Query("SELECT p FROM Product p WHERE p.inventory.quantityAvailable <= p.inventory.reorderThreshold")
+    List<Product> findProductsNeedingRestock();
 }
