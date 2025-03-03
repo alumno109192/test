@@ -1,6 +1,6 @@
-package com.example.infrastructure.repository;
+package com.es.prosacyte.web.demo.interfaz;
 
-import com.example.domain.Product;
+import com.es.prosacyte.web.demo.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,11 +22,11 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     List<Product> findByStatus(Product.ProductStatus status);
 
-    @Query("SELECT p FROM Product p JOIN p.categories c WHERE c = :category")
-    List<Product> findByCategory(@Param("category") String category);
+    //@Query("SELECT p FROM Product p JOIN p.categories c WHERE c = :category")
+    //List<Product> findByCategory(@Param("category") String category);
 
     List<Product> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 
-    @Query("SELECT p FROM Product p WHERE p.inventory.quantityAvailable <= p.inventory.reorderThreshold")
-    List<Product> findProductsNeedingRestock();
+   // @Query("SELECT p FROM Product p WHERE p.inventory.quantityAvailable <= p.inventory.reorderThreshold")
+    //List<Product> findProductsNeedingRestock();
 }
