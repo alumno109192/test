@@ -1,4 +1,4 @@
-package com.es.prosacyte.web.demo.interfaz;
+package com.es.prosacyte.web.demo.repository;
 
 import com.es.prosacyte.web.demo.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,8 +22,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     List<Product> findByStatus(Product.ProductStatus status);
 
-    //@Query("SELECT p FROM Product p JOIN p.categories c WHERE c = :category")
-    //List<Product> findByCategory(@Param("category") String category);
+    @Query("SELECT p FROM Product p JOIN p.categories c WHERE c = :category")
+    List<Product> findByCategory(@Param("category") String category);
 
     List<Product> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 

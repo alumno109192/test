@@ -18,6 +18,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "products")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by JPA, but protected to enforce factory methods
 public class Product {
 
